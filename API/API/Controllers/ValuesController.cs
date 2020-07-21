@@ -13,34 +13,24 @@ namespace API.Controllers
 
     public class ValuesController : ControllerBase
     {
-        private readonly DataContext _context;
-
-        public ValuesController(DataContext context)
-        {
-            _context = context;
-        }
         // GET api/values
-        [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> GetValues()
+        public ActionResult<IEnumerable<string>> Get()
         {
-            ///*var values = await _context.Values.ToListAsync*/();
-            return Ok(/*values*/);
+            return new string[] { "value1", "value2","Avigail" };
         }
 
-        [AllowAnonymous]
+        // GET api/values/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetValue(int id)
+        public ActionResult<string> Get(int id)
         {
-            //var value = await _context.Values.FirstOrDefaultAsync(x => x.Id == id);
-            return Ok(/*value*/);
+            return "value";
         }
 
         // POST api/values
         [HttpPost]
         public void Post([FromBody] string value)
         {
-
         }
 
         // PUT api/values/5
@@ -56,3 +46,4 @@ namespace API.Controllers
         }
     }
 }
+

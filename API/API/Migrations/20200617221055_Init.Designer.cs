@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200520184159_CreateDatabase")]
-    partial class CreateDatabase
+    [Migration("20200617221055_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,6 +32,19 @@ namespace API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("API.Model.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("API.Model.Like", b =>
@@ -119,7 +132,7 @@ namespace API.Migrations
 
                     b.Property<int>("Price");
 
-                    b.Property<int>("ProductState");
+                    b.Property<int?>("ProductStateId");
 
                     b.Property<int>("UserId");
 
@@ -127,9 +140,24 @@ namespace API.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("ProductStateId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("API.Model.ProductState", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("state");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductsState");
                 });
 
             modelBuilder.Entity("API.Model.User", b =>
@@ -138,7 +166,7 @@ namespace API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("City");
+                    b.Property<int?>("CityId");
 
                     b.Property<string>("Email");
 
@@ -155,6 +183,8 @@ namespace API.Migrations
                     b.Property<string>("UserName");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId");
 
                     b.ToTable("Users");
                 });
@@ -198,10 +228,21 @@ namespace API.Migrations
                         .WithMany()
                         .HasForeignKey("CategoryId");
 
+                    b.HasOne("API.Model.ProductState", "ProductState")
+                        .WithMany()
+                        .HasForeignKey("ProductStateId");
+
                     b.HasOne("API.Model.User", "User")
                         .WithMany("ProductsOfMine")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("API.Model.User", b =>
+                {
+                    b.HasOne("API.Model.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId");
                 });
 #pragma warning restore 612, 618
         }

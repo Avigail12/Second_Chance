@@ -21,6 +21,8 @@ namespace API.Data
         public DbSet<Like> Likes { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<ProductState> ProductsState { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // כדי ששתי הקודים יהיו קוד מפתח חייב לעשות זאת והמטרה שמשתמש לא יוכל לעשות לייק למשתנה אחר יותר מפעם אחת

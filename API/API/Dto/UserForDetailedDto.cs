@@ -1,4 +1,5 @@
-﻿using System;
+﻿using API.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace API.Dto
         public string City { get; set; }
 
         public string Phone { get; set; }
-        //public ICollection<PhotosForDetailedDto> Photos { get; set; }
+
+        public ICollection<Product> ProductsOfMine { get; set; }
+
     }
 }

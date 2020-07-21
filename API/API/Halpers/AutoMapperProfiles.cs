@@ -14,6 +14,14 @@ namespace API.Halpers
         {
             CreateMap<UserForRegisterDto, User>();
             CreateMap<User, UserForDetailedDto>();
+            CreateMap<Product, ProductForListDto>()
+                .ForMember(des => des.PhotoUrl, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url));
+            CreateMap<Product, ProductForDetailedDto>()
+                .ForMember(des => des.PhotoUrl, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url));
+            CreateMap<ProductToAddDto, Product>();
+            CreateMap<Photo, PhotoForReturnDto>();
+            CreateMap<PhotoForCreationDto, Photo>();
+            CreateMap<ProductForUpdateDto, Product>();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace API.Model
         public string Email { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
-        public string City { get; set; }
+        public City City { get; set; }
         public string Phone { get; set; }
         public ICollection<Product> ProductsOfMine { get; set; }
         public ICollection<Like> ProductsLike { get; set; }
